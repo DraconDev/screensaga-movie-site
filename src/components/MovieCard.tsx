@@ -7,37 +7,21 @@ import {
 	CardMedia,
 	Typography,
 } from "@mui/material";
-import React from "react";
+import { Movie } from "../types/Movie";
 
-type Props = {};
+const imageBaseUrl = "https://image.tmdb.org/t/p/";
+const imageSize = "w500";
 
-const MovieCard = (props: Props) => {
+const MovieCard = ({ title, poster_path }: Movie) => {
 	return (
-		<Grid xs={12} md={2} sx={{}}>
-			<Card variant="outlined">
-				<CardMedia
-					component="img"
-					alt="green iguana"
-					height="140"
-					image="/static/images/cards/contemplative-reptile.jpg"
-				/>
-				Card
-				<CardContent>
-					<Typography gutterBottom variant="h5" component="div">
-						Lizard
-					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						Lizards are a widespread group of squamate reptiles,
-						with over 6,000 species, ranging across all continents
-						except Antarctica
-					</Typography>
-				</CardContent>
-				<CardActions>
-					<Button size="small">Share</Button>
-					<Button size="small">Learn More</Button>
-				</CardActions>
-			</Card>
-		</Grid>
+		<Card variant="outlined">
+			<CardMedia
+				component="img"
+				alt={title}
+				height="300"
+				image={`${imageBaseUrl}${imageSize}${[poster_path]}`}
+			/>
+		</Card>
 	);
 };
 
