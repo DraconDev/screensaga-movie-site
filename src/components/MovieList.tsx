@@ -1,5 +1,7 @@
+import { Card, Grid } from "@mui/material";
 import React from "react";
 import useSWR from "swr";
+import MovieDisplay from "./MovieDisplay";
 
 const URL = `https://api.themoviedb.org/3/movie/popular?api_key=${
 	import.meta.env.VITE_API_KEY
@@ -29,8 +31,7 @@ const MovieList = () => {
 	const { data, error, isLoading } = useSWR(URL, getMovies);
 
 	return (
-		<div>
-			{" "}
+		<>
 			<h1>List of Popular Movies</h1>
 			{isLoading && <p>Loading movies...</p>}
 			{error && <p>Error loading movies. Please try again later.</p>}
@@ -39,7 +40,8 @@ const MovieList = () => {
 					<li key={movie.id}>{movie.title}</li>
 				))}
 			</ul>
-		</div>
+			<MovieDisplay></MovieDisplay>
+		</>
 	);
 };
 

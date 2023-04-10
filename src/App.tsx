@@ -1,11 +1,11 @@
-import "./App.css";
 import MovieList from "./components/MovieList";
+import MainLayout from "./layout/MainLayout";
 
 function App() {
 	return (
-		<div className="App">
+		<MainLayout>
 			<MovieList />
-		</div>
+		</MainLayout>
 	);
 }
 

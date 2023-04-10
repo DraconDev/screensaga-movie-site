@@ -74,7 +74,7 @@ export default function SearchAppBar() {
 							display: { xs: "none", sm: "block" },
 						}}
 					>
-						MUI
+						Movie List
 					</Typography>
 					<Search>
 						<SearchIconWrapper>
