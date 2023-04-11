@@ -14,7 +14,7 @@ const imageSize = "w500";
 
 const MovieCard = ({ title, poster_path }: Movie) => {
 	return (
-		<Card variant="outlined">
+		<Card>
 			<CardMedia
 				component="img"
 				alt={title}

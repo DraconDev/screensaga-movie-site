@@ -1,52 +1,52 @@
 import useSWR from "swr";
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import MovieCard from "./MovieCard";
-import { Movie } from "../types/Movie";
-
-const URL = `https://api.themoviedb.org/3/movie/popular?api_key=${
-	import.meta.env.VITE_API_KEY
-}`;
+import { POPULAR_URL, getMovies } from "../utils/movieUtils";
 
 const MovieList = () => {
-	async function getMovies(url: string): Promise<Movie[]> {
-		const response = await fetch(url);
-		const data = await response.json();
-		console.log(data.results);
-		return data.results;
-	}
+	const { data, error, isLoading } = useSWR(POPULAR_URL, getMovies);
 
-	// const posterPath = "/vJU3rXSP9hwUuLeq8IpfsJShLOk.jpg";
+	// const { data, error, isLoading } = useSWR(POPULAR_URL, getMovies);
 
-	// const imageUrl = `${imageBaseUrl}w500${posterPath}`;
-
-	// const { data, error, isLoading } = useSWR(URL, () => getMovies(URL));
-
-	const { data, error, isLoading } = useSWR(URL, getMovies);
+	// const top10InGenres = GENRES.map((genre) => {
+	// 	return getMoviesByGenre(GENRE_URL + genre);
+	// });
+	// async function getGenres() {
+	// 	const { data, error, isLoading } = await useSWR(
+	// 		GENRE_URL + "action",
+	// 		getMovies
+	// 	);
+	// 	console.log(data, "test");
+	// 	return data;
+	// }
+	// const genreMovies = getGenres();
+	// console.log(genreMovies);
 
 	return (
-		<>
-			<h1>List of Popular Movies</h1>
+		<Box px={{ py: 6 }}>
+			<Typography
+				variant="h3"
+				sx={{ textAlign: "left", fontWeight: 400, mb: 1 }}
+			>
+				Trending
+			</Typography>
 			{isLoading && <p>Loading movies...</p>}
 			{error && <p>Error loading movies. Please try again later.</p>}
-			<ul>
-				{data?.map((movie) => (
-					<li key={movie.id}>{movie.title}</li>
-				))}
-			</ul>
-			<Grid container spacing={2}>
+			<Grid container spacing={0}>
 				{data?.map((movie) => (
 					<Grid
 						item
-						xs={12}
-						md={2}
+						xs={4}
+						md={2.4}
 						key={movie.id}
-						sx={{ backgroundColor: "red", padding: "10px" }}
+						p={0.5}
+						sx={{ backgroundColor: "black" }}
 					>
 						<MovieCard {...movie} />
 					</Grid>
 				))}
 			</Grid>
-		</>
+		</Box>
 	);
 };
 

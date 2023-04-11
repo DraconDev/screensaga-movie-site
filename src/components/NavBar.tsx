@@ -1,4 +1,3 @@
-import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,6 +7,9 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import Button from "@mui/material/Button";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -22,6 +24,7 @@ const Search = styled("div")(({ theme }) => ({
 		marginLeft: theme.spacing(1),
 		width: "auto",
 	},
+	justifySelf: "center",
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -52,39 +55,88 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+	const [searchField, setSearchField] = React.useState("");
+	const navigate = useNavigate();
+
+	function handleKeyDown(e: KeyboardEvent) {
+		if (e.code === "Enter") {
+			navigate("/search/" + searchField, { replace: true });
+		}
+	}
+
+	useEffect(() => {
+		document.addEventListener("keydown", handleKeyDown);
+		return function cleanup() {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [searchField]);
+
+	console.log(searchField);
+
 	return (
-		<Box sx={{ flexGrow: 1 }}>
+		<Box
+			sx={{
+				flexGrow: 1,
+				backgroundColor: (theme) => theme.palette.primary.main,
+			}}
+		>
 			<AppBar position="static">
-				<Toolbar>
-					<IconButton
-						size="large"
-						edge="start"
-						color="inherit"
-						aria-label="open drawer"
-						sx={{ mr: 2 }}
-					>
-						<MenuIcon />
-					</IconButton>
-					<Typography
-						variant="h6"
-						noWrap
-						component="div"
+				<Toolbar
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						// backgroundColor: "red",
+					}}
+				>
+					<Box>
+						<Button
+							variant="outlined"
+							component={Link}
+							to="/"
+							sx={{ color: "white" }}
+						>
+							ScreenSaga
+						</Button>
+						{/* <IconButton
+							size="large"
+							edge="start"
+							color="inherit"
+							aria-label="open drawer"
+						>
+							<MenuIcon />
+						</IconButton> */}
+					</Box>
+					<Box
 						sx={{
-							flexGrow: 1,
-							display: { xs: "none", sm: "block" },
+							justifySelf: "center",
+							flexGrow: 0.5,
+							display: "flex",
+							placeItems: "center",
 						}}
 					>
-						Movie List
-					</Typography>
-					<Search>
-						<SearchIconWrapper>
-							<SearchIcon />
-						</SearchIconWrapper>
-						<StyledInputBase
-							placeholder="Search…"
-							inputProps={{ "aria-label": "search" }}
-						/>
-					</Search>
+						<Search sx={{ flexGrow: 1 }}>
+							<SearchIconWrapper>
+								<SearchIcon />
+							</SearchIconWrapper>
+							<StyledInputBase
+								sx={{ width: "100%" }}
+								inputProps={{ "aria-label": "search" }}
+								value={searchField}
+								onChange={(event) =>
+									setSearchField(event.target.value)
+								}
+							/>
+						</Search>
+						<Button
+							variant="outlined"
+							component={Link}
+							to={`/search/${searchField}`}
+							sx={{ color: "white" }}
+						>
+							Search
+						</Button>
+					</Box>
+					<Button sx={{ color: "white" }}>Recommendations</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>
