@@ -1,20 +1,18 @@
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./pages/HomePage";
-import "./index.css";
 import {
 	Navigate,
 	RouterProvider,
 	createBrowserRouter,
 	useParams,
 } from "react-router-dom";
+import "./index.css";
+import App from "./pages/HomePage";
 import MoviePage from "./pages/MoviePage";
-import SearchPage from "./pages/SearchPage";
-import path from "path";
-import { ThemeProvider } from "@emotion/react";
-import { createTheme } from "@mui/material";
 import Recommendations from "./pages/Recommendations";
-import VideoPlayer from "./components/VideoPlayer";
+import SearchPage from "./pages/SearchPage";
 
 function SearchPageWrapper() {
 	const { search } = useParams();
@@ -39,19 +37,15 @@ const router = createBrowserRouter([
 		path: "recommendations/",
 		element: <Recommendations />,
 	},
-	// {
-	// 	path: "/videoplayer/",
-	// 	element: <VideoPlayer />,
-	// },
 	{
 		path: "/",
 		element: <App />,
 		children: [],
 	},
-	// {
-	// 	path: "*",
-	// 	element: <Navigate to="/" />,
-	// },
+	{
+		path: "*",
+		element: <Navigate to="/" />,
+	},
 ]);
 
 const theme = createTheme({
