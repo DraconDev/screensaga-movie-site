@@ -59,7 +59,7 @@ export default function SearchAppBar() {
 	const navigate = useNavigate();
 
 	function handleKeyDown(e: KeyboardEvent) {
-		if (e.code === "Enter") {
+		if (e.code === "Enter" && searchField.length > 2) {
 			navigate("/search/" + searchField, { replace: true });
 		}
 	}
@@ -85,26 +85,19 @@ export default function SearchAppBar() {
 					sx={{
 						display: "flex",
 						justifyContent: "space-between",
-						// backgroundColor: "red",
+						backgroundColor: (theme) =>
+							theme.palette.secondary.main,
 					}}
 				>
 					<Box>
 						<Button
-							variant="outlined"
+							variant="text"
 							component={Link}
 							to="/"
 							sx={{ color: "white" }}
 						>
 							ScreenSaga
 						</Button>
-						{/* <IconButton
-							size="large"
-							edge="start"
-							color="inherit"
-							aria-label="open drawer"
-						>
-							<MenuIcon />
-						</IconButton> */}
 					</Box>
 					<Box
 						sx={{
@@ -128,15 +121,25 @@ export default function SearchAppBar() {
 							/>
 						</Search>
 						<Button
-							variant="outlined"
-							component={Link}
-							to={`/search/${searchField}`}
+							variant="text"
+							// component={Link}
+							// to={`/search/${searchField}`}
+							onClick={() => {
+								if (searchField.length > 2) {
+									navigate(`/search/${searchField}`);
+								}
+							}}
 							sx={{ color: "white" }}
 						>
 							Search
 						</Button>
 					</Box>
-					<Button sx={{ color: "white" }}>Recommendations</Button>
+					<Button
+						onClick={() => navigate("/recommendations/")}
+						sx={{ color: "white" }}
+					>
+						Movie recommender
+					</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>

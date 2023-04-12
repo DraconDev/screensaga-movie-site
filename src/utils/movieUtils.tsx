@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Movie } from "../types/Movie";
+import { Genres, Movie } from "../types/Movie";
 import useSWR from "swr";
 
 export const API_KEY = import.meta.env.VITE_API_KEY;
@@ -20,39 +20,48 @@ export async function getListOfGenres() {
 	const response = await fetch(
 		`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`
 	);
-	// console.log(response);
 	const data = await response.json();
-	// console.log(data);
+	return data.genres;
+}
+export const genres = (await getListOfGenres()) as Genres[];
+
+export async function getMovieById(movie_id: string) {
+	console.log(movie_id, "movie id");
+	const response = await fetch(
+		`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=en-US`
+	);
+	const data = await response.json();
+	console.log(data, "data");
 	return data;
 }
-export const genres = await getListOfGenres();
 
-// export async function getMoviesByGenre(url: string): Promise<Movie[]> {
-// 	const response = await fetch(url);
-// 	const data = await response.json();
-// 	console.log(data.results);
-// 	return data.results;
-// }
+export async function searchRecommendations(
+	// query: string,
+	searchGenre: string
+): Promise<Movie[]> {
+	const data = await axios.get(
+		"https://api.themoviedb.org/3/discover/movie",
+		{
+			params: {
+				api_key: API_KEY,
+				with_genres: searchGenre,
+				page: Math.floor(Math.random() * 15) + 1,
+			},
+		}
+	);
+	console.log(data, "data");
+	const results = data.data.results as Movie[];
+	const filterData = results.filter(
+		(movie) => movie.backdrop_path && movie.vote_count > 100
+	);
+	// filterData.sort((a, b) => {
+	// 	return b.vote_count - a.vote_count;
+	// });
 
-// export async function getMoviesByGenre(genre: string): Promise<Movie[] | void> {
-// 	await axios
-// 		.get("http://www.omdbapi.com/", {
-// 			params: {
-// 				apikey: API_KEY,
-// 				s: "",
-// 				type: "movie",
-// 				y: "",
-// 				r: "json",
-// 				page: 1,
-// 				genre: genre,
-// 			},
-// 		})
-// 		.then((response) => {
-// 			const movies = response.data;
-// 			return movies;
-// 		})
-// 		.catch((error) => {
-// 			console.log(error);
-// 			return;
-// 		});
-// }
+	function compareRandom(a: any, b: any) {
+		return Math.random() - 0.5;
+	}
+	const shuffledArray = filterData.sort(compareRandom);
+	// await console.log(data.data.results, "data");
+	return filterData.splice(0, 3);
+}

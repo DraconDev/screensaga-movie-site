@@ -2,7 +2,8 @@ import React from "react";
 import MainLayout from "../layout/MainLayout";
 import { SEARCH_URL, getMovies } from "../utils/movieUtils";
 import useSWR from "swr";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Link, Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
 	search: string | undefined;
@@ -17,11 +18,17 @@ const SearchPage = ({ search }: Props) => {
 	const imageBaseUrl = "https://image.tmdb.org/t/p/";
 	const imageSize = "original";
 
+	const navigate = useNavigate();
+
 	return (
 		<MainLayout>
 			{filteredResults?.map((movie) => (
 				<Paper
 					elevation={3}
+					// component={Link}
+					// href={`movie/${movie.id}`}
+					// underline="none"
+					onClick={() => navigate(`/movie/${movie.id}`)}
 					sx={{
 						m: 1,
 						height: "23vh",
@@ -32,6 +39,10 @@ const SearchPage = ({ search }: Props) => {
 						color: "white",
 						p: 0.2,
 						overflow: "hidden",
+						transition: "transform 0.12s ease-in-out",
+						"&:hover": {
+							transform: "scale(1.03)",
+						},
 					}}
 				>
 					<img

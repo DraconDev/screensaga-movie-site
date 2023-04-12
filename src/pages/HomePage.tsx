@@ -3,34 +3,21 @@ import { Box, createTheme } from "@mui/material";
 import MovieList from "../components/MovieList";
 import MainLayout from "../layout/MainLayout";
 import Swiper from "../components/Swiper";
+import { getMovieById } from "../utils/movieUtils";
 
-const theme = createTheme({
-	palette: {
-		primary: {
-			main: "#2C3639",
-		},
-		secondary: {
-			light: "#3F4E4F",
-			main: "#3F4E4F",
-		},
-		text: {
-			primary: "#ffffff", // sets the primary text color to white
-			secondary: "#ffffff", // sets the secondary text color to white
-		},
-		background: {
-			default: "rgb(17, 17, 19)", // sets the
-		},
-	},
-});
 
 function App() {
+	// const test = getMovieById("373223").then((data) => data);
+	// console.log(test, "ryd");
+
+
+	// console.log(data, "ryd");
+
 	return (
-		<ThemeProvider theme={theme}>
-			<MainLayout>
-				<Swiper />
-				<MovieList />
-			</MainLayout>
-		</ThemeProvider>
+		<MainLayout>
+			<Swiper />
+			<MovieList />
+		</MainLayout>
 	);
 }
 

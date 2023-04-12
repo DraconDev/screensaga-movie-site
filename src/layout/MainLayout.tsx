@@ -9,7 +9,7 @@ interface MainProps {
 
 const main = ({ children }: { children: ReactNode }) => {
 	return (
-		<Box sx={{ fontFamily: "Monospace" }}>
+		<Box sx={{ color: "white" }}>
 			<NavBar></NavBar>
 			<Container maxWidth="lg">{children}</Container>
 		</Box>

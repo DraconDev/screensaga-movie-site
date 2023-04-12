@@ -15,15 +15,14 @@ const Swiper = (props: Props) => {
 	const filteredData = data?.filter((movie) => movie.backdrop_path);
 
 	return (
-		<Box sx={{ mb: 2 }}>
-			<Carousel animation="slide">
+		<Box sx={{ textAlign: "center", height: "100%" }}>
+			<Carousel animation="fade" indicators={false}>
 				{filteredData?.map((movie) => (
 					<Paper
 						key={movie.id}
 						sx={{
 							p: 0,
 							m: 0,
-							bgcolor: "primary.main",
 							backgroundColor: (theme) =>
 								theme.palette.background.default,
 						}}
@@ -33,15 +32,11 @@ const Swiper = (props: Props) => {
 								movie.backdrop_path,
 							]}`}
 							alt={movie.title}
-							// height="100%"
 							width="100%"
-							style={{
-								width: "100%",
-								// height: "56.5vh",
-								// maxWidth: "400px",
-							}}
+							height="100%"
+							style={{ objectFit: "cover" }}
 						/>
-						{/* <Typography>{movie.title}</Typography> */}
+						<Typography variant="h4">{movie.title}</Typography>
 					</Paper>
 				))}
 			</Carousel>
