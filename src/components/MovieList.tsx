@@ -6,7 +6,6 @@ import { fetchWiki } from "../utils/wikipedia";
 
 const MovieList = () => {
 	const { data, error, isLoading } = useSWR(POPULAR_URL, getMovies);
-	fetchWiki("Avatar");
 	return (
 		<Box px={{ py: 6 }}>
 			<Typography

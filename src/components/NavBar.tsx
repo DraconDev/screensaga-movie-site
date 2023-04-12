@@ -71,20 +71,22 @@ export default function SearchAppBar() {
 		};
 	}, [searchField]);
 
-	console.log(searchField);
+	
 
 	return (
 		<Box
 			sx={{
 				flexGrow: 1,
 				backgroundColor: (theme) => theme.palette.primary.main,
+				mb: 8,
 			}}
 		>
-			<AppBar position="static">
+			<AppBar position="fixed">
 				<Toolbar
 					sx={{
 						display: "flex",
 						justifyContent: "space-between",
+
 						backgroundColor: (theme) =>
 							theme.palette.secondary.main,
 					}}
@@ -94,7 +96,7 @@ export default function SearchAppBar() {
 							variant="text"
 							component={Link}
 							to="/"
-							sx={{ color: "white" }}
+							sx={{ mx: 1, color: "white" }}
 						>
 							ScreenSaga
 						</Button>
@@ -136,7 +138,7 @@ export default function SearchAppBar() {
 					</Box>
 					<Button
 						onClick={() => navigate("/recommendations/")}
-						sx={{ color: "white" }}
+						sx={{ color: "white", mx: 1 }}
 					>
 						Movie recommender
 					</Button>

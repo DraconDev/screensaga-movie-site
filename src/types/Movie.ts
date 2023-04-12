@@ -3,6 +3,7 @@ export type Movie = {
 	title: string;
 	poster_path: string;
 	vote_average: number;
+	// genre_ids: number[];
 	[key: string]: any;
 };
 

@@ -7,12 +7,6 @@ import { getMovieById } from "../utils/movieUtils";
 
 
 function App() {
-	// const test = getMovieById("373223").then((data) => data);
-	// console.log(test, "ryd");
-
-
-	// console.log(data, "ryd");
-
 	return (
 		<MainLayout>
 			<Swiper />

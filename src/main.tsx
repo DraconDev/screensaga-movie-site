@@ -14,6 +14,7 @@ import path from "path";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import Recommendations from "./pages/Recommendations";
+import VideoPlayer from "./components/VideoPlayer";
 
 function SearchPageWrapper() {
 	const { search } = useParams();
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
 		path: "recommendations/",
 		element: <Recommendations />,
 	},
+	// {
+	// 	path: "/videoplayer/",
+	// 	element: <VideoPlayer />,
+	// },
 	{
 		path: "/",
 		element: <App />,

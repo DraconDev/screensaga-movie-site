@@ -13,7 +13,7 @@ const SearchPage = ({ search }: Props) => {
 	const { data, error, isLoading } = useSWR(SEARCH_URL + search, getMovies);
 	const filteredResults = data?.filter((movie) => movie.backdrop_path);
 
-	console.log(data, filteredResults, "test");
+	
 
 	const imageBaseUrl = "https://image.tmdb.org/t/p/";
 	const imageSize = "original";

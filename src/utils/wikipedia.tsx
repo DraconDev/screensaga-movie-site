@@ -9,7 +9,7 @@ export async function fetchWiki(query: string) {
 	// const pageId = Object.keys(response.data.query.pages)[0];
 	// const extract = response.data.query.pages[pageId].extract;
 
-	console.log(await response);
+
 
 	// return extract;
 }

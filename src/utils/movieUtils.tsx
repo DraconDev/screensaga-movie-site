@@ -25,13 +25,13 @@ export async function getListOfGenres() {
 }
 export const genres = (await getListOfGenres()) as Genres[];
 
-export async function getMovieById(movie_id: string) {
-	console.log(movie_id, "movie id");
+export async function getMovieById(movie_id: string): Promise<Movie> {
+	
 	const response = await fetch(
 		`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=en-US`
 	);
 	const data = await response.json();
-	console.log(data, "data");
+
 	return data;
 }
 
@@ -49,19 +49,16 @@ export async function searchRecommendations(
 			},
 		}
 	);
-	console.log(data, "data");
+
 	const results = data.data.results as Movie[];
 	const filterData = results.filter(
 		(movie) => movie.backdrop_path && movie.vote_count > 100
 	);
-	// filterData.sort((a, b) => {
-	// 	return b.vote_count - a.vote_count;
-	// });
 
 	function compareRandom(a: any, b: any) {
 		return Math.random() - 0.5;
 	}
 	const shuffledArray = filterData.sort(compareRandom);
-	// await console.log(data.data.results, "data");
+
 	return filterData.splice(0, 3);
 }
