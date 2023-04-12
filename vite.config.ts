@@ -8,4 +8,7 @@ export default defineConfig({
 		// Expose environment variables to the client-side React code
 		"process.env": process.env,
 	},
+	build: {
+		target: "esnext", // Or "esnext"
+	},
 });
